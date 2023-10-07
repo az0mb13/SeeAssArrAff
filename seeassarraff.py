@@ -1,4 +1,6 @@
 import urllib.parse
+# from html import escape as hesc
+
 
 # Read the HTTP request from the file
 with open("burp_request.txt", "r") as request_file:
@@ -24,11 +26,26 @@ body = request_lines[-1]  # Assuming the body is the last line in this example
 pairs = body.split('&')
 parsed_body = {}
 
+
+def hesc(input_string):
+    encoded_string = ""
+    for char in input_string:
+        if char.isalnum():
+            # If the character is alphanumeric, append it as is
+            encoded_string += char
+        else:
+            # If the character is not alphanumeric, encode it as an HTML entity
+            encoded_string += f'&#{ord(char)};'
+
+    return encoded_string
+
+
+
 for pair in pairs:
     key, value = pair.split('=')
     key = urllib.parse.unquote(key)  # Decode URL-encoded key
     value = urllib.parse.unquote(value)  # Decode URL-encoded value
-    parsed_body[key] = value
+    parsed_body[hesc(key)] = hesc(value)
 
 
 html_content = f"""
@@ -57,3 +74,5 @@ html_content += f"""
 </html>"""
 
 print(html_content)
+
+
