@@ -20,7 +20,7 @@ def main():
     write_result_to_file(out_file, html_content)
 
     print(html_content)
-    print(f"\nSeeAssArrAff PoC saved inside ./results/{out_file}")
+    print(f"\n===> SeeAssArrAff PoC saved inside ./results/{out_file} <====")
 
 if __name__ == "__main__":
     main()
