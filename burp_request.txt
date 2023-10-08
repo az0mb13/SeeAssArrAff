@@ -17,6 +17,3 @@ Sec-Fetch-User: ?1
 Te: trailers
 
 email=random%40test.com&name[]=["alex", 1234]&namex=asdasd
-
-
-
