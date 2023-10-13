@@ -34,6 +34,11 @@ def parse_request(request_string):
 
     body = request_lines[-1]  # Assuming the body is the last line in this example
 
+    if 'Content-Length' in headers and int(headers['Content-Length']) == 0:
+        # If Content-Length is 0, return without parsing
+        return method, full_url, headers, {}
+    
+    
     if headers["Content-Type"] == "application/x-www-form-urlencoded":
         pairs = body.split('&')
         parsed_body = {}
