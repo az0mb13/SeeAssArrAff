@@ -18,5 +18,5 @@ python main.py burp_request.txt poc
 - [x] HTTP Simple Request Handling
 - [x] JSON Request Handling with Padding
 - [ ] Multipart Requests
-- [x] Requests without a body
+- [ ] Requests without a body
 - [ ] CSRF Validation by repeating the request
