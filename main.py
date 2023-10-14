@@ -1,3 +1,7 @@
+import os
+import functools
+import socketserver
+import http.server
 import argparse
 from file_operations import read_request_from_file, write_result_to_file
 from request_parser import parse_request
@@ -7,6 +11,7 @@ def main():
     parser = argparse.ArgumentParser(description="SeeAssArrAff PoC Creator")
     parser.add_argument("request_file", help="Path to the HTTP request file")
     parser.add_argument("output_file", help="Path to the output CSRF PoC")
+    parser.add_argument("-s", "--server", help="Server the PoC on this port")
     args = parser.parse_args()
 
     out_file = args.output_file
@@ -21,6 +26,22 @@ def main():
 
     print(html_content)
     print(f"\n===> SeeAssArrAff PoC saved inside ./results/{out_file} <====")
+    
+    if args.server:
+        port = int(args.server)
+        curdir = os.path.abspath(os.curdir) + "/results"
+        print(curdir)
+        Handler = functools.partial(http.server.SimpleHTTPRequestHandler, directory=curdir)
+        
+        try:
+            with socketserver.TCPServer(("0.0.0.0", port), Handler) as httpd:
+                print(f"Serving the PoC at http://127.0.0.1:{port}/{out_file}")
+                httpd.serve_forever()
+        except KeyboardInterrupt:
+            print("\nCiao")
+            httpd.server_close()
+
+
 
 if __name__ == "__main__":
     main()
