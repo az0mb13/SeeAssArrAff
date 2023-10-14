@@ -20,3 +20,4 @@ python main.py burp_request.txt poc
 - [ ] Multipart Requests
 - [x] Requests without a body
 - [ ] CSRF Validation by repeating the request
+- [x] Temporary server for validating the PoC like Burp
